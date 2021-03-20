@@ -87,7 +87,7 @@ jobs:
             }
           ]
         }
-        EOF
+EOF
         
 
     - name: Generate Xray Config File (VLESS)
@@ -125,7 +125,7 @@ jobs:
             }
           ]
         }
-        EOF
+EOF
         
 
     - name: Generate Manifest File
@@ -138,8 +138,7 @@ jobs:
           command: base64 -d config > config.json; ./${IBM_CF_APP_NAME} -config=config.json
           buildpacks:
           - binary_buildpack
-          EOF
-        
+EOF
 
     - name: Deploy Cloud Foundry App
       run: cf push
