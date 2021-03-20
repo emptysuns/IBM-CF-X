@@ -55,7 +55,7 @@ jobs:
     - name: Generate Xray Config File (VMess)
       if: ${{ env.V2_WS_PATH_VMESS }}
       run: |
-        base64 << 123 > config
+        base64 > config << EOF
         {
           "log": {
             "access": "none",
@@ -87,12 +87,13 @@ jobs:
             }
           ]
         }
+        EOF
         
 
     - name: Generate Xray Config File (VLESS)
       if: ${{ env.V2_WS_PATH_VLESS }}
       run: |
-        base64 << 123 > config
+        base64 > config << EOF
         {
           "log": {
             "access": "none",
@@ -124,11 +125,12 @@ jobs:
             }
           ]
         }
+        EOF
         
 
     - name: Generate Manifest File
       run: |
-        cat << 123 > manifest.yml
+        cat > manifest.yml << EOF 
         applications:
         - name: ${IBM_CF_APP_NAME}
           memory: ${IBM_CF_APP_MEM}
@@ -136,6 +138,7 @@ jobs:
           command: base64 -d config > config.json; ./${IBM_CF_APP_NAME} -config=config.json
           buildpacks:
           - binary_buildpack
+          EOF
         
 
     - name: Deploy Cloud Foundry App
